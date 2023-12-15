@@ -1,7 +1,6 @@
 #! /bin/bash
 sudo apt-get update -y
 sudo apt-get upgrade -y
-sudo hostnamectl set-hostname terraform-jenkins
 
 #install automatic updates and reboots
 sudo apt-get update -y
@@ -40,9 +39,6 @@ sudo systemctl status jenkins
 sudo apt-get update
 sudo apt-get install docker.io -y
 sudo usermod -aG docker $USER
-sudo usermod -a -G docker ec2-user
-sudo usermod -a -G docker terraform-jenkins
-newgrp docker
 sudo chmod 777 /var/run/docker.sock
 
 docker run hello-world
@@ -54,6 +50,7 @@ sudo systemctl start docker
 #
 sudo cp /lib/systemd/system/docker.service /lib/systemd/system/docker.service.bak
 sudo sed -i 's/^ExecStart=.*/ExecStart=\/usr\/bin\/dockerd -H tcp:\/\/127.0.0.1:2375 -H unix:\/\/\/var\/run\/docker.sock/g' /lib/systemd/system/docker.service
+sudo systemctl daemon-reload
 sudo systemctl restart docker
 sudo systemctl restart jenkins
 
@@ -76,14 +73,11 @@ sudo apt-get update -y
 sudo apt-get install ansible -y && sudo apt install ansible-core -y
 
 #install nodejs and npm
-sudo curl -fsSL https://deb.nodesource.com/setup_lts.x | sudo -E bash -
 sudo apt-get update -y
 sudo apt-get install -y nodejs
 node --version
 npm --version
 sudo npm install -g pm2
-
-
 
 # Install Boto3
 sudo apt install  pip -y
@@ -101,4 +95,4 @@ sudo apt-get update -y
 sudo apt install kubectl -y
 
 
-echo "You're all set!"
+echo "You're all set! ...."

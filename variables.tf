@@ -1,11 +1,14 @@
 variable "prefix" {
-  default = "jenkins"
+  default = "zs-terraform"
 }
 
 variable "ssh_key_name" {
   default = "terraform"
 }
 
+
 variable "ssh_private_key_path" {
-  default = "/Users/zackarinuitee/"
+  description = "Path to the SSH private key file"
+  type        = string
+  default     = "/Users/zackarinuitee/terraform.pem"
 }
