@@ -10,5 +10,5 @@ variable "ssh_key_name" {
 variable "ssh_private_key_path" {
   description = "Path to the SSH private key file"
   type        = string
-  default     = "/Users/zackarinuitee/terraform.pem"
+  default     = "/Users/zackary/terraform.pem"
 }

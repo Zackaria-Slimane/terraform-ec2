@@ -34,7 +34,6 @@ resource "aws_instance" "ec2-zs" {
 	  volume_tags = {
     Name = var.prefix
   }
-	# Login to the ec2-user with the aws key.
   connection {
     type        = "ssh"
     user        = "ec2-zs"

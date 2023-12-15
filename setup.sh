@@ -41,7 +41,6 @@ sudo apt-get install docker.io -y
 sudo usermod -aG docker $USER
 sudo chmod 777 /var/run/docker.sock
 
-docker run hello-world
 
 sudo systemctl enable docker
 sudo systemctl start docker
