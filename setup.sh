@@ -2,15 +2,6 @@
 sudo apt-get update -y
 sudo apt-get upgrade -y
 
-#install automatic updates and reboots
-sudo apt-get update -y
-sudo apt-get install unattended-upgrades -y
-sudo dpkg-reconfigure -f noninteractive unattended-upgrades
-echo 'Unattended-Upgrade::Automatic-Reboot "true";' | sudo tee -a /etc/apt/apt.conf.d/50unattended-upgrades
-echo 'APT::Periodic::Enable "1";' | sudo tee -a /etc/apt/apt.conf.d/10periodic
-echo 'APT::Periodic::Update-Package-Lists "1";' | sudo tee -a /etc/apt/apt.conf.d/10periodic
-echo 'APT::Periodic::Download-Upgradeable-Packages "1";' | sudo tee -a /etc/apt/apt.conf.d/10periodic
-echo 'APT::Periodic::AutocleanInterval "7";' | sudo tee -a /etc/apt/apt.conf.d/10periodic
 
 # Install Git
 sudo apt install git -y
@@ -32,8 +23,8 @@ sudo apt-get update -y
 sudo apt-get install jenkins -y
 
 sudo systemctl enable jenkins
-sudo systemctl start jenkins
-sudo systemctl status jenkins
+sudo systemctl start jenkins -y
+sudo systemctl status jenkins -y
 
 # Install Docker
 sudo apt-get update

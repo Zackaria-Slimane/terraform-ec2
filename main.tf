@@ -7,12 +7,12 @@ terraform {
 }
 
 provider "aws" {
-  region = "eu-west-2"
+  region = "eu-north-1"
 }
 
 resource "aws_instance" "ec2-zs" {
-  ami                    = "ami-0505148b3591e4c07"
-  instance_type          = "t2.micro"
+  ami                    = "ami-0014ce3e52359afbd"
+  instance_type          = "t3.micro"
   key_name               = var.ssh_key_name
   vpc_security_group_ids = [aws_security_group.sg.id]
 
@@ -51,7 +51,7 @@ resource "aws_instance" "ec2-zs" {
 }
 
 locals {
-  ingress_ports = [22,8080,9000,3000,3306,5137,443]
+  ingress_ports = [22,8080,9000,3000,5137,443]
 }
 
 resource "aws_security_group" "sg" {

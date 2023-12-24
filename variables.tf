@@ -1,14 +1,14 @@
 variable "prefix" {
-  default = "zs-terraform"
+  default = "zs-terrafr"
 }
 
 variable "ssh_key_name" {
-  default = "terraform"
+  default = "terrafr"
 }
 
 
 variable "ssh_private_key_path" {
   description = "Path to the SSH private key file"
   type        = string
-  default     = "/Users/zackary/terraform.pem"
+  default     = "/Users/zackary/terrafr.pem"
 }
