@@ -1,14 +1,14 @@
 variable "prefix" {
-  default = "zs-terrafr"
+  default = "zs-portfolio"
 }
 
 variable "ssh_key_name" {
-  default = "terrafr"
+  default = "zsfolio"
 }
 
 
 variable "ssh_private_key_path" {
   description = "Path to the SSH private key file"
   type        = string
-  default     = "/Users/zackary/terrafr.pem"
+  default     = "/Users/zackary/zsfolio.pem"
 }

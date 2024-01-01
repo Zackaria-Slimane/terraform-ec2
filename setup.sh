@@ -37,7 +37,7 @@ sudo systemctl enable docker
 sudo systemctl start docker
 
 
-#
+# Configure Docker to listen on port 2375
 sudo cp /lib/systemd/system/docker.service /lib/systemd/system/docker.service.bak
 sudo sed -i 's/^ExecStart=.*/ExecStart=\/usr\/bin\/dockerd -H tcp:\/\/127.0.0.1:2375 -H unix:\/\/\/var\/run\/docker.sock/g' /lib/systemd/system/docker.service
 sudo systemctl daemon-reload
@@ -63,10 +63,14 @@ sudo apt-get update -y
 sudo apt-get install ansible -y && sudo apt install ansible-core -y
 
 #install nodejs and npm
-sudo apt-get update -y
-sudo apt-get install -y nodejs
-node --version
-npm --version
+sudo apt install curl
+curl https://raw.githubusercontent.com/creationix/nvm/master/install.sh | bash
+source ~/.profile
+
+export NVM_DIR="$HOME/.nvm"
+[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
+[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
+
 sudo npm install -g pm2
 
 # Install Boto3
@@ -83,6 +87,13 @@ curl -fsSL https://packages.cloud.google.com/apt/doc/apt-key.gpg | sudo gpg --de
 echo "deb [signed-by=/etc/apt/keyrings/kubernetes-archive-keyring.gpg] https://apt.kubernetes.io/ kubernetes-xenial main" | sudo tee /etc/apt/sources.list.d/kubernetes.list
 sudo apt-get update -y
 sudo apt install kubectl -y
+
+#install codedeploy agent
+sudo apt install ruby-full -y
+cd /home/ubuntu
+wget https://aws-codedeploy-eu-north-1.s3.eu-north-1.amazonaws.com/latest/install
+chmod +x ./install
+sudo ./install auto
 
 
 echo "You're all set! ...."

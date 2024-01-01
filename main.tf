@@ -1,7 +1,7 @@
 terraform {
   required_providers {
     aws = {
-      source  = "hashicorp/aws"
+      source = "hashicorp/aws"
     }
   }
 }
@@ -10,52 +10,50 @@ provider "aws" {
   region = "eu-north-1"
 }
 
-resource "aws_instance" "ec2-zs" {
+resource "aws_instance" "ec2-t3micro-zsfolio" {
   ami                    = "ami-0014ce3e52359afbd"
-  instance_type          = "t3.micro"
+  instance_type          = "t3.small"
   key_name               = var.ssh_key_name
-  vpc_security_group_ids = [aws_security_group.sg.id]
+  vpc_security_group_ids = [aws_security_group.securityGroup-zsfolio.id]
 
   tags = {
-    Name = var.prefix
+    Name  = var.prefix,
+    Value = "zs-portfolio"
   }
+
   user_data = data.template_file.userdata.rendered
 
   provisioner "file" {
-    source      = "~/setup.sh"
-    destination = "/tmp/setup.sh"
+    source      = "./setup.sh"
+    destination = "/home/ubuntu/setup.sh"
   }
 
-  # ebs_block_device {
-  #   device_name = "/dev/xvdb"
-  #   volume_type = "gp2"
-  #   volume_size = 8
-  # }
-	  volume_tags = {
-    Name = var.prefix
+  volume_tags = {
+    Name  = var.prefix,
+    Value = "zs-portfolio"
   }
+
   connection {
     type        = "ssh"
-    user        = "ec2-zs"
-    password    = ""
+    user        = "ubuntu"
     private_key = file(var.ssh_private_key_path)
     host        = self.public_ip
   }
-	  provisioner "remote-exec" {
+
+  provisioner "remote-exec" {
     inline = [
-      "chmod +x /tmp/setup.sh",
-      "sudo /tmp/setup.sh",
+      "sudo chmod +x setup.sh",
     ]
   }
 
 }
 
 locals {
-  ingress_ports = [22,8080,9000,3000,5137,443]
+  ingress_ports = [22, 443, 3000]
 }
 
-resource "aws_security_group" "sg" {
-  name = "${var.prefix}-sg"
+resource "aws_security_group" "securityGroup-zsfolio" {
+  name = "${var.prefix}-SG"
 
   dynamic "ingress" {
     for_each = local.ingress_ports
