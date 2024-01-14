@@ -24,8 +24,8 @@ resource "aws_instance" "ec2-t3micro-zsfolio" {
   user_data = data.template_file.userdata.rendered
 
   provisioner "file" {
-    source      = "./setup.sh"
-    destination = "/home/ubuntu/setup.sh"
+    source      = "./scripts/jenkins.sh"
+    destination = "/home/ubuntu/jenkins.sh"
   }
 
   volume_tags = {
@@ -42,14 +42,14 @@ resource "aws_instance" "ec2-t3micro-zsfolio" {
 
   provisioner "remote-exec" {
     inline = [
-      "sudo chmod +x setup.sh",
+      "sudo chmod +x jenkins.sh",
     ]
   }
 
 }
 
 locals {
-  ingress_ports = [22, 443, 3000]
+  ingress_ports = [22, 443, 3000, 8080]
 }
 
 resource "aws_security_group" "securityGroup-zsfolio" {
@@ -77,5 +77,5 @@ resource "aws_security_group" "securityGroup-zsfolio" {
 
 
 data "template_file" "userdata" {
-  template = file("${abspath(path.module)}/setup.sh")
+  template = file("${abspath(path.module)}/scripts/jenkins.sh")
 }

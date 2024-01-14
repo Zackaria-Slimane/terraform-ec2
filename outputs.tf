@@ -3,7 +3,7 @@ output "Jenkins_Server_URL" {
 }
 
 output "SSH_Command" {
-  value = "ssh -i ${var.ssh_private_key_path}${var.ssh_key_name}.pem ec2-user@${aws_instance.ec2-t3micro-zsfolio.public_ip}"
+  value = "ssh -i ${var.ssh_private_key_path} ec2-user@${aws_instance.ec2-t3micro-zsfolio.public_ip}"
 }
 
 output "Jenkins_Password_Retrieval" {
