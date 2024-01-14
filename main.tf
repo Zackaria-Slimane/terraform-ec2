@@ -49,7 +49,7 @@ resource "aws_instance" "ec2-t3micro-zsfolio" {
 }
 
 locals {
-  ingress_ports = [22, 443, 3000, 8080]
+  ingress_ports = [22,25, 443, 3000, 8080]
 }
 
 resource "aws_security_group" "securityGroup-zsfolio" {
