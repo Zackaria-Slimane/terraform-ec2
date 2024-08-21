@@ -1,5 +1,5 @@
 variable "prefix" {
-  default = "zs-portfolio"
+  default = "zs"
 }
 
 variable "ssh_key_name" {
